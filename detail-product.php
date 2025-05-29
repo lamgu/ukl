@@ -97,6 +97,7 @@ if (isset($_POST['submit_komentar'])) {
 </head>
 
 <body>
+    <img src="./produk/<?php echo $p->foto_wisata ?>" alt="" class="background">
     <nav>
         <div class="navigasi-atas">
             <div class="logo">
@@ -112,9 +113,7 @@ if (isset($_POST['submit_komentar'])) {
             </div>
         </div>
     </nav>
-
     <!-- Product detail -->
-    <div class="section">
         <div class="container">
             <h4 class="active"><?php echo $p->nama_wisata ?></h4>
             <div class="box">
@@ -153,6 +152,7 @@ if (isset($_POST['submit_komentar'])) {
                             <a href=""><i class='bx bxl-instagram-alt'></i></a>
                         </div>
                     </div>
+
                     <!-- Mengecek apakah user sudah mengisi form di profil? -->
                     <?php
                     $id_user = $_SESSION['id'];
@@ -173,16 +173,19 @@ if (isset($_POST['submit_komentar'])) {
 
                     <?php if ($profil_incomplete): ?>
                         <div class="alert">
+                            <img src="./asset/Desain tanpa judul (15).png" alt="">
+                            <h1> Ups.. ada yang kurang sepertinya</h1>
                             <p>Silakan lengkapi nomor telepon dan alamat di halaman profil sebelum melakukan pemesanan.</p>
                             <a href="profil.php"><button>Lengkapi Profil</button></a>
+                            <br>
                             <div class="pemesanan-deskripsi">
-                                <a href="#" class="DeskripsiWisata-link">Kembali</a>
+                                <a href="#" class="DeskripsiWisata-link"><i class='bx bx-chevron-left'></i>Kembali</a>
                             </div>
                         </div>
                     <?php else: ?>
                         <div class="deskripsi pemesanan deskripsi-pemesanan">
                             <div class="form-box">
-                                <form action="proses.pemesanan.php" method="post" class="form-pemesanan">
+                                <form action="Pemesanan/proses.pemesanan.php" method="post" class="form-pemesanan">
                                     <h2>Pemesanan</h2>
                                     <input type="hidden" name="ID_post" value="<?= $_GET['id']; ?>">
 
@@ -202,7 +205,7 @@ if (isset($_POST['submit_komentar'])) {
                                             <option value="Ditempat">Pembayaran Ditempat</option>
                                         </select>
                                     </div>
-                                    <button id="" type="submit" <?php if ($profil_incomplete) echo 'disabled'; ?>>
+                                    <button class="PesaSekarang" type="submit" <?php if ($profil_incomplete) echo 'disabled'; ?>>
                                         Pesan Sekarang
                                     </button>
                                     <div class="pemesanan-deskripsi">
@@ -245,7 +248,40 @@ if (isset($_POST['submit_komentar'])) {
                 </div>
             </div>
         </div>
+
+        <footer class="footer">
+            <div class="footer-container">
+                <div class="footer-logo">
+                    <h2>Explor<span>Jatim</span></h2>
+                    <br>
+                    <div class="social-icons">
+                        <a href="#"><i class='bx bxl-meta'></i></a>
+                        <a href="#"><i class='bx bxl-whatsapp'></i></a>
+                        <a href="#"><i class='bx bxl-instagram'></i></a>
+                        <a href=""><i class='bx bxl-twitter'></i></a>
+                    </div>
+                    <br>
+                    <p>&copy; 2024 ExplorJatim.</p>
+                </div>
+                <div class="footer-contact">
+                    <h3>Contact us</h3>
+                    <p>+62 081389742344</p>
+                    <p>explorjatim@gmail.com</p>
+                    <p>Jln Ketintang Selatan, Malang</p>
+                </div>
+                <div class="footer-services">
+                    <h3>Our Services</h3>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Category</a></li>
+                        <li><a href="#">Profile</a></li>
+                    </ul>
+                </div>
+            </div>
+        </footer>
 </body>
+
 <script src="js/pemesanan.js"></script>
 
 </html>

@@ -1,8 +1,14 @@
 <?php
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+require './Phpmailer/vendor/autoload.php';
 session_start();
 include 'login.php';
 include 'connection.php';
 
+$mail = new PHPMailer(true);
 
 //membikin login
 if (isset($_POST['submit'])) {
