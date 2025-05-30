@@ -64,7 +64,6 @@ include 'connection.php';
             <div class="form-box login">
                 <form action="proses.php" method="POST">
                     <h2> Masuk</h2>
-
                     <div class="input-box">
                         <span class="icon"><i class='bx bx-envelope'></i></span>
                         <input type="email" name="namlog" id="" required>
@@ -129,6 +128,6 @@ include 'connection.php';
                     </div>
             </div>
         </div>
-                
+
         <script src="js/login.js"></script>
 </body>
