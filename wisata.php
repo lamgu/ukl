@@ -38,25 +38,19 @@ if (!isset($_SESSION["login"])) {
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Dancing+Script:wght@400..700&family=Fasthand&family=Fredoka:wdth,wght@94.3,300..700&family=Pacifico&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <!-- box icon -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Dancing+Script:wght@400..700&family=Fasthand&family=Fredoka:wdth,wght@94.3,300..700&family=Pacifico&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 
 <body>
-    <nav>
-        <div class="navigasi-atas">
-            <div class="logo">
-                <a href="index.html"><img src="asset/Tanpa judul (200 x 40 piksel) (1).png" class="hitam"></a>
-            </div>
-            <div class="menu">
-                <ul>
-                    <li><a href="index.php">Home</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="category1.html" class="active">Category</a></li>
-                    <li><a href="profil.php">Profil</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
+    <div class="tombol-kembali">
+        <a href="javascript:history.back()"><i class='bx bx-arrow-back'></i></a>
+    </div>
     <div class="section">
         <div class="container">
             <?php

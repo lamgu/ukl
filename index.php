@@ -55,6 +55,7 @@ $d = mysqli_fetch_object($query);
                     <li><a href="about.html">About us</a></li>
                     <li><a href="category1.html">Category</a></li>
                     <li><a href="profil.php">Profil</a></li>
+                    <li><a href="profil.php">Pesanan</a></li>
                 </ul>
             </div>
         </div>

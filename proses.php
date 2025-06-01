@@ -15,14 +15,14 @@ function kirimemail_verifikasi($email, $verify_token)
     $mail = new PHPMailer(true);
 
     //Server settings
-    $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
-    $mail->isSMTP();                                            //Send using SMTP
-    $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
-    $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-    $mail->Username   = 'ghulam.nawwaf@gmail.com';                     //SMTP username
-    $mail->Password   = 'srtpwlfqsejusuba';                               //SMTP password
-    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;            //Enable implicit TLS encryption
-    $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+    $mail->SMTPDebug = SMTP::DEBUG_SERVER;                          //Enable verbose debug output
+    $mail->isSMTP();                                                //Send using SMTP
+    $mail->Host       = 'smtp.gmail.com';                           //Set the SMTP server to send through
+    $mail->SMTPAuth   = true;                                       //Enable SMTP authentication
+    $mail->Username   = 'ghulam.nawwaf@gmail.com';                  //SMTP username
+    $mail->Password   = 'srtpwlfqsejusuba';                         //SMTP password
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;             //Enable implicit TLS encryption
+    $mail->Port       = 587;                                        //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
     //Recipients
     $mail->setFrom('ghulam.nawwaf@gmail.com', 'Ghulam Nawwaf');
@@ -88,7 +88,7 @@ if (isset($_POST['daftar'])) {
     $sql = mysqli_query($conn, $query);
     if ($sql) {
         kirimemail_verifikasi($email, $verify_token); //mengirim email verifikasi  
-        echo "<script>alert('Registasi Sukses!, Silahkan Login ulang'); 
+        echo "<script>alert('Registasi Sukses!, Silahkan verifikasi akun di gmail dan Login ulang'); 
         location.href='login.php';</script>";
     } else {
         echo '<script>alert("username/password tidak sesuai.");</script>';
