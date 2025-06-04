@@ -12,7 +12,7 @@ if (isset($_SESSION['status'])) {
     echo "<script>alert('$message');</script>";
     unset($_SESSION['status']);
 }
-
+//php mailer
 function kirimemail_verifikasi_pemesanan($email, $verify_token, $id_order, $nama_wisata, $total_harga)
 {
     require '../Phpmailer/vendor/autoload.php';

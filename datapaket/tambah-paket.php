@@ -60,30 +60,10 @@ if (!isset($_SESSION['login']) || $_SESSION['level'] != 'admin') {
             <div class="box">
                 <form action="" method="POST" enctype="multipart/form-data">
                     <!-- mengirim data file -->
-                    <select class="input-control" name="kategori" required>
-                        <option value="">---Pilih Kategori--</option>
-                        <?php
-                        $kategori = mysqli_query($conn, "SELECT * FROM tb_category ORDER BY ID_category DESC");
-                        while ($r = mysqli_fetch_array($kategori)) {
-                        ?>
-                            <option value="<?php echo $r['ID_category'] ?>"><?php echo $r['category_name'] ?></option>
-                        <?php
-                        }
-                        ?>
-                    </select>
-
-                    <input type="text" name="nama" class="input-control" placeholder="Nama Objek" required>
+                    <input type="text" name="nama" class="input-control" placeholder="Nama Paketk" required>
                     <input type="text" name="Harga" class="input-control" placeholder="Harga" required>
                     <input type="file" name="Gambar" class="input-control" required>
                     <textarea name="deskripsi" class="input-control" id="deskripsi" placeholder="Deskripsi" rows="7" required></textarea><br>
-
-
-                    <select name="status" class="input-control"
-                        <option value="">--Pilih Status-- </option>
-                        <option value="1">Aktif</option>
-                        <option value="0">Tidak aktif</option>
-                    </select>
-
                     <input type="submit" name="submit" value="Tambah" class="btn">
                     <a href="data-produk.php"><input type="text" name="submit" value="kembali" class="btn-active"></a>
                 </form>
@@ -94,13 +74,10 @@ if (!isset($_SESSION['login']) || $_SESSION['level'] != 'admin') {
                     //print_r($_FILES['Gambar']);
 
                     //menampung inputan dari form
-                    $kategori  = $_POST['kategori'];
                     $nama      = $_POST['nama'];
                     $harga     = $_POST['Harga'];
                     $deskripsi = $_POST['deskripsi'];
                     $ID_user   = $_SESSION['id'];
-                    $status    = $_POST['status'];
-
 
                     //menampung data field yang diupload
 
@@ -115,7 +92,7 @@ if (!isset($_SESSION['login']) || $_SESSION['level'] != 'admin') {
                     //memastikan selalu mendapatkan ekstensi terakhir
 
                     //rename
-                    $newname = 'Produk' . time() . '.' . $type2;
+                    $newname = 'Paket' . time() . '.' . $type2;
 
                     //tipe format yang diizinkan
                     $tipe_diizinkan = array('jpg', 'png', 'jpeg');
@@ -129,14 +106,14 @@ if (!isset($_SESSION['login']) || $_SESSION['level'] != 'admin') {
                         //jika format file benar
 
                         //proses uploud file & insert ke dalam database
-                        move_uploaded_file($tmp_name, '../produk/' . $newname);
+                        move_uploaded_file($tmp_name, '../paket/' . $newname);
 
-                        $insert = mysqli_query($conn, "INSERT INTO tb_post VALUES (
-                        null, '$kategori', '$nama', '$harga', '$deskripsi', '$newname', null, '$ID_user', '$status'
+                        $insert = mysqli_query($conn, "INSERT INTO tb_paket VALUES (
+                        null, '$nama', '$harga', '$deskripsi', '$newname'
                         )");
 
                         if ($insert) {
-                            echo "<script>alert('Data berhasil di tambahkan'); location='data-paket.php';</script>";
+                            echo "<script>alert('Data berhasil di tambahkan'); location='data-produk.php';</script>";
                         } else {
                             echo "Gagal: " . mysqli_error($conn);
                         }

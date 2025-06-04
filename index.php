@@ -51,11 +51,11 @@ $d = mysqli_fetch_object($query);
             </div>
             <div class="menu">
                 <ul>
-                    <li><a href="index.html" class="active">Home</a></li>
-                    <li><a href="about.html">About us</a></li>
-                    <li><a href="category1.html">Category</a></li>
-                    <li><a href="profil.php">Profil</a></li>
-                    <li><a href="profil.php">Pesanan</a></li>
+                    <li><a href="index.html" class="active" alt="Home"><i class='bx bx-home-alt' title="Home"></i></a></li>
+                    <li><a href="about.html"><i class='bx bxs-info-circle' title="About us"></i></a></li>
+                    <li><a href="category1.html"><i class='bx bxs-category'></i></a></li>
+                    <li><a href="profil.php"><i class='bx bxs-user-circle'></i></a></li>
+                    <li><a href="profil.php"><i class='bx bxs-cart-alt' ></i></a></li>
                 </ul>
             </div>
         </div>

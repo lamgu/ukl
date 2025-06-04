@@ -7,6 +7,13 @@ if (!isset($_SESSION['login']) || $_SESSION['level'] != 'admin') {
     exit();
 }
 
+$produk = mysqli_query($conn, "SELECT * FROM tb_paket WHERE id_paket = '" . $_GET['id'] . "' ");
+if (mysqli_num_rows($produk) == 0) {
+    header("Location: data-produk.php");
+    exit();
+}
+$p = mysqli_fetch_object($produk);
+
 ?>
 <html lang="en">
 
@@ -59,48 +66,29 @@ if (!isset($_SESSION['login']) || $_SESSION['level'] != 'admin') {
             </h1>
             <div class="box">
                 <form action="" method="POST" enctype="multipart/form-data">
-                    <!-- mengirim data file -->
-                    <select class="input-control" name="kategori" required>
-                        <option value="">---Pilih Kategori--</option>
-                        <?php
-                        $kategori = mysqli_query($conn, "SELECT * FROM tb_category ORDER BY ID_category DESC");
-                        while ($r = mysqli_fetch_array($kategori)) {
-                        ?>
-                            <option value="<?php echo $r['ID_category'] ?>"><?php echo $r['category_name'] ?></option>
-                        <?php
-                        }
-                        ?>
-                    </select>
-
-                    <input type="text" name="nama" class="input-control" placeholder="Nama Objek" required>
-                    <input type="text" name="Harga" class="input-control" placeholder="Harga" required>
-                    <input type="file" name="Gambar" class="input-control" required>
-                    <textarea name="deskripsi" class="input-control" id="deskripsi" placeholder="Deskripsi" rows="7" required></textarea><br>
-
-
-                    <select name="status" class="input-control"
-                        <option value="">--Pilih Status-- </option>
-                        <option value="1">Aktif</option>
-                        <option value="0">Tidak aktif</option>
-                    </select>
+                    <input type="text" name="nama" class="input-control" placeholder="Nama Objek" required
+                        value="<?php echo $p->nama_paket ?>">
+                    <input type="text" name="Harga" class="input-control" placeholder="Harga" required
+                        value="<?php echo $p->harga_paket ?>">
+                    <img src="../paket/<?php echo ($p->foto_paket) ?>" width="130px" title="<?php echo ($p->foto_paket)?>">
+                    <input type="hidden" name="foto" value="<?php echo $p->foto_paket ?>">
+                      <!-- buat yang atas -->
+                    <input type="file" name="Gambar" class="input-control">
+                    <textarea name="deskripsi" class="input-control" id="deskripsi" placeholder="Deskripsi"
+                        required><?php echo $p->deskripsi ?></textarea><br>
 
                     <input type="submit" name="submit" value="Tambah" class="btn">
-                    <a href="data-produk.php"><input type="text" name="submit" value="kembali" class="btn-active"></a>
+                    <a href="data-paket.php"><input type="text" name="submit" value="kembali" class="btn-active"></a>
                 </form>
 
                 <?php
                 if (isset($_POST['submit'])) {
 
-                    //print_r($_FILES['Gambar']);
-
-                    //menampung inputan dari form
-                    $kategori  = $_POST['kategori'];
-                    $nama      = $_POST['nama'];
-                    $harga     = $_POST['Harga'];
+                    //data inputan dari form
+                    $nama = $_POST['nama'];
+                    $harga = $_POST['Harga'];
                     $deskripsi = $_POST['deskripsi'];
-                    $ID_user   = $_SESSION['id'];
-                    $status    = $_POST['status'];
-
+                    $foto = $_POST['foto'];
 
                     //menampung data field yang diupload
 
@@ -115,31 +103,40 @@ if (!isset($_SESSION['login']) || $_SESSION['level'] != 'admin') {
                     //memastikan selalu mendapatkan ekstensi terakhir
 
                     //rename
-                    $newname = 'Produk' . time() . '.' . $type2;
+                    $newname = 'paket' . time() . '.' . $type2;
 
                     //tipe format yang diizinkan
                     $tipe_diizinkan = array('jpg', 'png', 'jpeg');
 
-                    //validasi format file
-                    if (!in_array($type2, $tipe_diizinkan))
-                    //mengecek  apakah suatu nilai tidak ada di dalam array.
-                    {
-                        echo "<script>alert(Format file tidak di izinkan)</script>";
-                    } else {
-                        //jika format file benar
-
-                        //proses uploud file & insert ke dalam database
-                        move_uploaded_file($tmp_name, '../produk/' . $newname);
-
-                        $insert = mysqli_query($conn, "INSERT INTO tb_post VALUES (
-                        null, '$kategori', '$nama', '$harga', '$deskripsi', '$newname', null, '$ID_user', '$status'
-                        )");
-
-                        if ($insert) {
-                            echo "<script>alert('Data berhasil di tambahkan'); location='data-paket.php';</script>";
+                    //jika admin mengganti gambar
+                    if ($filename != '') {
+                        if (!in_array($type2, $tipe_diizinkan))
+                        //mengecek  apakah suatu nilai tidak ada di dalam array.
+                        {
+                            echo "<script>alert(Format file tidak di izinkan)</script>";
                         } else {
-                            echo "Gagal: " . mysqli_error($conn);
+                            //jika format file benar hapus file pertama dulu
+                            unlink('../paket/' . $foto);
+                            //proses uploud file & insert ke dalam database
+                            move_uploaded_file($tmp_name, '../paket/' . $newname);
+                            $namagambar = $newname;
                         }
+                    } else {
+                        //jika $filename tidak kosong
+                        $namagambar = $foto;
+                    }
+
+                    $update = mysqli_query($conn, "UPDATE tb_paket SET 
+                                nama_paket = '$nama', 
+                                harga_paket = '$harga', 
+                                deskripsi = '$deskripsi', 
+                                foto_paket = '$namagambar'  
+                                WHERE id_paket = '$p->id_paket'");
+
+                    if ($update) {
+                        echo "<script>alert('Data berhasil di diubah'); location='data-paket.php';</script>";
+                    } else {
+                        echo "Gagal: " . mysqli_error($conn);
                     }
                 }
                 ?>
